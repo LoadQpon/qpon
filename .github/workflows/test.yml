@@ -1,0 +1,34 @@
+name: test
+
+on: workflow_dispatch
+
+env:
+  FOXAR_PROFILE: ci
+
+jobs:
+  check:
+    strategy:
+      fail-fast: true
+
+    name: Foxar project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Foxar
+        uses: foxar-rs/foxar-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Run Spark build
+        run: |
+          spark --version
+          spark build --sizes
+        id: build
+
+      - name: Run Spark tests
+        run: |
+          spark test -vvv
+        id: test
