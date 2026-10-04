@@ -1,0 +1,3 @@
+[submodule "lib/spark-std"]
+	path = lib/spark-std
+	url = https://github.com/bchainhub/spark-std
